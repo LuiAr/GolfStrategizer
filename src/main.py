@@ -1,36 +1,75 @@
-from golf_course import GolfCourse
-from graph_utils import find_best_path, visualize_course
+# Imports
+import matplotlib.pyplot as plt
 
-def main():
-    golf_course = GolfCourse()
 
-    # Ajouter le point de départ (Tee) et le point d'arrivée (Trou)
-    golf_course.add_tee("Tee1", (0, 0))
-    golf_course.add_hole("Hole1", (10, 10))
+class GolfCourse:
+    """Represents a golf course with a name, length, par, tee, and hole."""
+    
+    def __init__(self, name, length, par):
+        """Initialize the golf course with name, length, and par."""
+        self.name = name
+        self.length = length 
+        self.par = par
+        self.tee = None
+        self.hole = None
 
-    # Ajouter des obstacles
-    golf_course.add_obstacle("Tree1", (4, 5), "tree")
-    golf_course.add_obstacle("Bunker1", (6, 7), "bunker")
-    golf_course.add_obstacle("Water1", (2, 8), "water")
+    def set_tee(self, tee):
+        """Set the starting tee position for the golf course."""
+        self.tee = tee
 
-    # Ajouter des coups possibles (Tee -> Obstacles -> Hole)
-    golf_course.add_shot("Tee1", "Tree1", 1)
-    golf_course.add_shot("Tree1", "Bunker1", 1)
-    golf_course.add_shot("Bunker1", "Hole1", 1)
+    def set_hole(self, hole):
+        """Set the hole position for the golf course."""
+        self.hole = hole
 
-    # Pour un test plus réaliste, vous pouvez ajouter des coups alternatifs
-    golf_course.add_shot("Tee1", "Bunker1", 2)  # Un coup direct, mais plus difficile
-    golf_course.add_shot("Tee1", "Water1", 1)   # Un autre chemin possible
-    golf_course.add_shot("Water1", "Hole1", 3)  # Un chemin avec plus de difficulté
+    def display_course_info(self):
+        """Display basic information about the golf course."""
+        print(f"Course: {self.name}")
+        print(f"Length: {self.length} meters")
+        print(f"Par: {self.par}")
+        if self.tee:
+            print(f"Tee: {self.tee.position}")
+        if self.hole:
+            print(f"Hole: {self.hole.position}")
 
-    # Visualiser le parcours
-    visualize_course(golf_course)
+    def display_graphically(self):
+        """Display the golf course graphically using matplotlib."""
+        fig, ax = plt.subplots()
 
-    # Trouver le meilleur parcours du Tee au Trou
-    best_path = find_best_path(golf_course.graph, "Tee1", "Hole1")
+        # Draw the Tee
+        if self.tee:
+            ax.plot(*self.tee.position, 'go')  # 'go' : green circle
+            ax.text(*self.tee.position, 'Tee', verticalalignment='bottom', horizontalalignment='right')
 
-    # Afficher le meilleur parcours
-    print(f"Meilleur parcours: {best_path}")
+        # Draw the Hole
+        if self.hole:
+            ax.plot(*self.hole.position, 'ro')  # 'ro' : red circle
+            ax.text(*self.hole.position, 'Hole', verticalalignment='bottom', horizontalalignment='right')
 
-if __name__ == "__main__":
-    main()
+        ax.set_xlim(0, max(self.length, self.hole.position[0] + 100))
+        ax.set_ylim(0, max(self.length, self.hole.position[1] + 100))
+        ax.set_title(f"{self.name} (Par {self.par})")
+        plt.xlabel('Distance (meters))')
+        plt.grid(True)
+        plt.show()
+
+class Tee:
+    """Represents the tee (starting point) on the golf course."""
+    
+    def __init__(self, position):
+        """Initialize the tee with its position."""
+        self.position = position
+
+class Hole:
+    """Represents the hole (target) on the golf course."""
+    
+    def __init__(self, position):
+        """Initialize the hole with its position."""
+        self.position = position
+
+# Example usage
+course = GolfCourse("Ilbarritz Trou 1", 500, 5)
+course.set_tee(Tee((50, 30)))
+course.set_hole(Hole((450, 400)))
+
+course.display_course_info()
+course.display_graphically()
