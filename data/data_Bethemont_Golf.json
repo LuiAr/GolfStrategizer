@@ -1,0 +1,559 @@
+{
+    "apiRequestsLeft": "44.9",
+    "courseID": "0121236631231973",
+    "numCoordinates": 69,
+    "coordinates": [
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": "1",
+            "latitude": 48.9118218,
+            "longitude": 1.9937836
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": "1",
+            "latitude": 48.911774,
+            "longitude": 1.993946
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": "1",
+            "latitude": 48.911778,
+            "longitude": 1.994194
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": "2",
+            "latitude": 48.911176,
+            "longitude": 1.996556
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": "2",
+            "latitude": 48.911203,
+            "longitude": 1.996309
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": "2",
+            "latitude": 48.911144,
+            "longitude": 1.996058
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": "3",
+            "latitude": 48.90792,
+            "longitude": 1.993518
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": "3",
+            "latitude": 48.908021,
+            "longitude": 1.993638
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": "3",
+            "latitude": 48.908153,
+            "longitude": 1.993787
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": "4",
+            "latitude": 48.906567,
+            "longitude": 1.991711
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": "4",
+            "latitude": 48.906652,
+            "longitude": 1.991763
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": "4",
+            "latitude": 48.906758,
+            "longitude": 1.991898
+        },
+        {
+            "poi": "3",
+            "location": "3",
+            "sideFW": "1",
+            "hole": "4",
+            "latitude": 48.9075922,
+            "longitude": 1.9923918
+        },
+        {
+            "poi": "3",
+            "location": "1",
+            "sideFW": "1",
+            "hole": "4",
+            "latitude": 48.9077853,
+            "longitude": 1.9926238
+        },
+        {
+            "poi": "4",
+            "location": "1",
+            "sideFW": "3",
+            "hole": "4",
+            "latitude": 48.9071656,
+            "longitude": 1.9919103
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": "5",
+            "latitude": 48.906672,
+            "longitude": 1.994189
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": "5",
+            "latitude": 48.906766,
+            "longitude": 1.994402
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": "5",
+            "latitude": 48.9065459,
+            "longitude": 1.9940428
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": "6",
+            "latitude": 48.908649,
+            "longitude": 2.000229
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": "6",
+            "latitude": 48.908591,
+            "longitude": 2.000036
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": "6",
+            "latitude": 48.908584,
+            "longitude": 1.999876
+        },
+        {
+            "poi": "9",
+            "location": "2",
+            "sideFW": "1",
+            "hole": "6",
+            "latitude": 48.9080136,
+            "longitude": 1.9969717
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": "7",
+            "latitude": 48.910047,
+            "longitude": 1.997656
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": "7",
+            "latitude": 48.909917,
+            "longitude": 1.997858
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": "7",
+            "latitude": 48.909773,
+            "longitude": 1.998026
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": "8",
+            "latitude": 48.9069104,
+            "longitude": 1.9926789
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": "8",
+            "latitude": 48.906926,
+            "longitude": 1.992806
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": "8",
+            "latitude": 48.906942,
+            "longitude": 1.993045
+        },
+        {
+            "poi": "4",
+            "location": "1",
+            "sideFW": "2",
+            "hole": "8",
+            "latitude": 48.9073542,
+            "longitude": 1.9935948
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": "9",
+            "latitude": 48.911058,
+            "longitude": 1.997225
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": "9",
+            "latitude": 48.910899,
+            "longitude": 1.997224
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": "9",
+            "latitude": 48.910737,
+            "longitude": 1.997221
+        },
+        {
+            "poi": "9",
+            "location": "2",
+            "sideFW": "1",
+            "hole": "9",
+            "latitude": 48.9100374,
+            "longitude": 1.9972144
+        },
+        {
+            "poi": "9",
+            "location": "2",
+            "sideFW": "3",
+            "hole": "9",
+            "latitude": 48.9100233,
+            "longitude": 1.9971836
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": 10,
+            "latitude": 48.90914,
+            "longitude": 2.001313
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": 10,
+            "latitude": 48.909194,
+            "longitude": 2.001136
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": 10,
+            "latitude": 48.909224,
+            "longitude": 2.000927
+        },
+        {
+            "poi": "9",
+            "location": "2",
+            "sideFW": "1",
+            "hole": 10,
+            "latitude": 48.9093463,
+            "longitude": 1.9995171
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": 11,
+            "latitude": 48.906328,
+            "longitude": 1.995671
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": 11,
+            "latitude": 48.906413,
+            "longitude": 1.995872
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": 11,
+            "latitude": 48.906503,
+            "longitude": 1.996019
+        },
+        {
+            "poi": "9",
+            "location": "2",
+            "sideFW": "1",
+            "hole": 11,
+            "latitude": 48.9072943,
+            "longitude": 1.9985193
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": 12,
+            "latitude": 48.9061957,
+            "longitude": 1.9918952
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": 12,
+            "latitude": 48.90612,
+            "longitude": 1.992087
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": 12,
+            "latitude": 48.906106,
+            "longitude": 1.992342
+        },
+        {
+            "poi": "4",
+            "location": "1",
+            "sideFW": "2",
+            "hole": 12,
+            "latitude": 48.9058707,
+            "longitude": 1.993344
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": 13,
+            "latitude": 48.907412,
+            "longitude": 1.990626
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": 13,
+            "latitude": 48.907238,
+            "longitude": 1.990642
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": 13,
+            "latitude": 48.907099,
+            "longitude": 1.990588
+        },
+        {
+            "poi": "2",
+            "location": "1",
+            "sideFW": "3",
+            "hole": 13,
+            "latitude": 48.9069717,
+            "longitude": 1.9907838
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": 14,
+            "latitude": 48.9110611,
+            "longitude": 1.994163
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": 14,
+            "latitude": 48.910926,
+            "longitude": 1.994206
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": 14,
+            "latitude": 48.910804,
+            "longitude": 1.994279
+        },
+        {
+            "poi": "9",
+            "location": "2",
+            "sideFW": "3",
+            "hole": 14,
+            "latitude": 48.9099096,
+            "longitude": 1.9947588
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": 15,
+            "latitude": 48.908636,
+            "longitude": 1.991334
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": 15,
+            "latitude": 48.908715,
+            "longitude": 1.991487
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": 15,
+            "latitude": 48.908821,
+            "longitude": 1.991607
+        },
+        {
+            "poi": "2",
+            "location": "1",
+            "sideFW": "2",
+            "hole": 15,
+            "latitude": 48.9090519,
+            "longitude": 1.9918513
+        },
+        {
+            "poi": "3",
+            "location": "3",
+            "sideFW": "1",
+            "hole": 15,
+            "latitude": 48.9095402,
+            "longitude": 1.9929443
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": 16,
+            "latitude": 48.913084,
+            "longitude": 1.994013
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": 16,
+            "latitude": 48.912935,
+            "longitude": 1.993973
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": 16,
+            "latitude": 48.912789,
+            "longitude": 1.993901
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": 17,
+            "latitude": 48.9139478,
+            "longitude": 1.9946263
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": 17,
+            "latitude": 48.913815,
+            "longitude": 1.994598
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": 17,
+            "latitude": 48.913671,
+            "longitude": 1.994579
+        },
+        {
+            "poi": "1",
+            "location": "3",
+            "sideFW": "2",
+            "hole": 18,
+            "latitude": 48.912222,
+            "longitude": 1.997825
+        },
+        {
+            "poi": "1",
+            "location": "2",
+            "sideFW": "2",
+            "hole": 18,
+            "latitude": 48.9121868,
+            "longitude": 1.9980272
+        },
+        {
+            "poi": "1",
+            "location": "1",
+            "sideFW": "2",
+            "hole": 18,
+            "latitude": 48.912269,
+            "longitude": 1.997631
+        },
+        {
+            "poi": "4",
+            "location": "3",
+            "sideFW": "1",
+            "hole": 18,
+            "latitude": 48.9132994,
+            "longitude": 1.9967625
+        }
+    ]
+}
