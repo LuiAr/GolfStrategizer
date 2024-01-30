@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon, Ellipse
 from PIL import Image, ImageDraw, ImageFont
 from shapely.geometry import LineString, Polygon
+import time
+import sys
 
 # Some settings for the PIL package
 font = ImageFont.truetype("../fonts/RobotoMono-Bold.ttf", 30)
@@ -129,8 +131,10 @@ def annotate_path(draw, path, iron_recommendations, img_width, img_height):
 
 # SETTINGS
 golf_irons = {
-    'Iron 9': 85,  
-    'Iron 7': 110,
+    # 'Sand Wedge': 70,
+    'Iron 9': 105,  
+    'Iron 7': 128,
+    'Driver 3': 190,
     'Putter': 10
 }
 
@@ -215,7 +219,8 @@ if __name__ == "__main__":
 
 
     # Optionally, draw obstacles based on a flag
-    draw_obstacles = False
+    draw_obstacles = True
+    # draw_obstacles = False
     if draw_obstacles:
         with open("../data/obstacles.txt", "r") as file:
             for line in file:
@@ -230,7 +235,7 @@ if __name__ == "__main__":
     annotate_path(draw, recommended_path, iron_recommendations, img_width, img_height)
 
     # Save or display the modified image
-    img.save("../images/hole4_path_and_obstacles.png")
+    img.save("output.png")
     # img.show()
 
     print()
