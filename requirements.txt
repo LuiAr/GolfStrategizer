@@ -1,1 +1,6 @@
 matplotlib
+requests
+networkx
+numpy
+pandas
+pyarrow

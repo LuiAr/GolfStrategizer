@@ -7,6 +7,9 @@ from shapely.geometry import LineString, Polygon
 import time
 import sys
 
+# Import the function GoogleMapDownloader to download high res maps
+from GoogleMapDownloader import GoogleMapDownloader, GoogleMapsLayers
+
 # Some settings for the PIL package
 font = ImageFont.truetype("../fonts/RobotoMono-Bold.ttf", 30)
 
@@ -161,12 +164,22 @@ if __name__ == "__main__":
     print("### 🏌️‍♂️  An Innovative Algorithm for Golf Strategies 🏌️‍♀️  ###")
     print("#########################################################\n")
 
-    # Load your image
-    img = Image.open("../images/hole4.png")
+    # Use the GoogleMapDownloader
+    gmd = GoogleMapDownloader(48.90777644484169, 1.9924695786917603, 19, GoogleMapsLayers.SATELLITE)
+
+    #     # Load your image
+    img = gmd.generateImage()
     draw = ImageDraw.Draw(img)
 
     # Define the geographical extent and image size
-    lat_min, lat_max, lon_min, lon_max = 48.906378, 48.909397, 1.991191, 1.994474
+    corners = gmd.get_corner_lat_lons()
+
+    lat_min = corners["bottom_left"][0]
+    lon_min = corners["bottom_left"][1]
+
+    lat_max = corners["top_right"][0]
+    lon_max = corners["top_right"][1]
+    
     img_width, img_height = img.size
 
     print("-- Geographical extent --")
