@@ -50,6 +50,11 @@ def getPredictionLabels(path, threshold=0.7):
 
             # Draw polygon using the color mapped to the class
             class_label = pred['class'] 
+
+            # As model is not well trained on "class" : "fairway", we will remove it
+            if class_label == "fairway":
+                continue
+
             color = class_colors.get(class_label, (255, 255, 255))  # Default to white if class not found
             cv2.polylines(image, [pts], isClosed=True, color=color, thickness=2)
 

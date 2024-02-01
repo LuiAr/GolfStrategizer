@@ -51,7 +51,6 @@ def calculate_recommended_path(start_coords, end_coords, nodes, obstacles, terra
         for node2 in nodes[i + 1:]:
             distance = calculate_distance(node1, node2)
             if not path_intersects_obstacle(node1, node2, obstacles, terrain) and distance <= max_range:
-                # Add an edge with distance as weight
                 graph.add_edge(node1, node2, weight=distance)
 
     # Compute the shortest path
@@ -61,12 +60,13 @@ def calculate_recommended_path(start_coords, end_coords, nodes, obstacles, terra
         print("No path found")
         return [], []
 
-    # Calculate iron recommendations for each segment
+    # Calculate iron recommendations for each segment, considering the rule for 'Driver 3'
     iron_recommendations = []
-    for i in range(len(path) - 1):
-        segment_distance = calculate_distance(path[i], path[i + 1])
-        recommended_iron = select_iron(segment_distance)
-        iron_recommendations.append((path[i], path[i + 1], recommended_iron))
+    for i, (start, end) in enumerate(zip(path[:-1], path[1:])):
+        segment_distance = calculate_distance(start, end)
+        is_first_shot = (i == 0)  # Check if it's the first shot
+        recommended_iron = select_iron(segment_distance, is_first_shot)
+        iron_recommendations.append((start, end, recommended_iron))
 
     return path, iron_recommendations
 
@@ -127,10 +127,12 @@ def draw_obstacle(draw, obstacle_coords, color):
     draw.polygon(image_coords, outline=color, fill=color)
 
 def parse_obstacle_data(line):
-    parts = line.split(',')
-    color = parts[1]
-    coords = [(float(parts[i]), float(parts[i + 1])) for i in range(2, len(parts), 2)]
-    return coords, color
+    if line.strip(): 
+        parts = line.split(',')
+        color = parts[1]
+        coords = [(float(parts[i]), float(parts[i + 1])) for i in range(2, len(parts), 2)]
+        return coords, color
+    return [], None 
 
 def annotate_path(draw, path, iron_recommendations, img_width, img_height):
     """Annotate the path with the recommended iron."""
@@ -140,9 +142,12 @@ def annotate_path(draw, path, iron_recommendations, img_width, img_height):
         draw.text((mid_x, mid_y), f'{iron}', fill="white" , font=font)
 
 
-def select_iron(distance):
-    """Select the appropriate golf iron for a given distance."""
-    for iron, max_range in golf_irons.items():
+def select_iron(distance, is_first_shot):
+    """Select the appropriate golf iron for a given distance, considering usage rules."""
+    # Exclude 'Driver 3' if it's not the first shot
+    available_irons = {k: v for k, v in golf_irons.items() if not (k == 'Driver 3' and not is_first_shot)}
+    
+    for iron, max_range in sorted(available_irons.items(), key=lambda item: item[1], reverse=True):
         if distance <= max_range:
             return iron
     return 'Iron 9'
@@ -166,20 +171,42 @@ if __name__ == "__main__":
     """
     SETTINGS
     """
-    # Define start (tee) and end (hole) points
-    start_coords = (48.90891343931512, 1.9938896367494228)
-    end_coords = (48.90665014147519, 1.991794617313395)
-    # Define the threshold for the prediction
-    value_threshold = 60
-    # Define the golf irons
-    golf_irons = {
-        'Iron 9': 105,  
-        'Iron 7': 128,
-        'Driver 3': 190,
-    }
-    # Define the files to store all the obstacles (until the model is 100% accurate)
-    obstacles_file = "../data/obstacles.txt"
-    terrain_file = "../data/terrain.txt"
+
+    print("Select version: \n- 1. Golf de Béthemont \n- 2. Golf d'Ilbarritz")
+    input_version = input("Version: ")
+    # Defined to setp multiple version to test with differents golfs
+    if input_version == "1": 
+        print("\n---- Golf de Béthemont ----")
+        # Define start (tee) and end (hole) points
+        start_coords = (48.90891343931512, 1.9938896367494228)
+        end_coords = (48.90665014147519, 1.991794617313395)
+        # Define the threshold for the prediction
+        value_threshold = 60
+        # Define the golf irons
+        golf_irons = {
+            'Iron 9': 105,  
+            'Iron 7': 128,
+            'Driver 3': 190,
+        }
+        # Define the files to store all the obstacles (until the model is 100% accurate)
+        obstacles_file = "../data/obstacles.txt"
+        terrain_file = "../data/terrain.txt"
+    elif input_version == "2":
+        print("\n---- Golf d'Ilbarritz ----")
+        start_coords = (43.46049913636801, -1.5757732009295526)
+        end_coords = (43.46042123600998, -1.5719332568242161)
+        value_threshold = 30
+        golf_irons = {
+            'Iron 9': 90,  
+            'Iron 7': 130,
+            'Driver 3': 190,
+        }
+        obstacles_file = "../data-ilbarritz/obstacles.txt"
+        terrain_file = "../data-ilbarritz/terrain.txt"
+    else:
+        print("Invalid input")
+        sys.exit()
+
     """
     SETTINGS
     """
@@ -196,14 +223,13 @@ if __name__ == "__main__":
     draw = ImageDraw.Draw(img)
 
     # Save image
-    img_path = "map.png"
+    img_path = "output/image.png"
     img.save(img_path)
 
     # Show the prediction on the image (the returned image is a cv2 image)
-    predictions = getPredictionLabels(img_path, threshold=value_threshold)
-    # Show the image and wait for user input to continue
-    cv2.imshow("Predictions with labels", predictions)
-    cv2.waitKey(0)
+    img_with_labels = getPredictionLabels(img_path, threshold=value_threshold)
+    # Save the image
+    cv2.imwrite("output/image_with_labels.png", img_with_labels)
 
     # Define the geographical extent and image size
     corners = gmd.get_corner_lat_lons()
@@ -244,15 +270,20 @@ if __name__ == "__main__":
     with open(obstacles_file, "r") as file:
         for line in file:
             coords, _ = parse_obstacle_data(line)
-            obstacles.append(coords)
+            if coords:  # Check if coords is not empty
+                obstacles.append(coords)
+
+    # Initialize terrain with a default value if no data is provided
+    default_terrain_coords = [(lat_min, lon_min), (lat_min, lon_max), (lat_max, lon_max), (lat_max, lon_min)]
+    terrain = Polygon(default_terrain_coords)  # Default terrain that covers the entire area
+
+    with open(terrain_file, "r") as file:
+        line = file.readline()
+        coords, _ = parse_obstacle_data(line)
+        if coords:  # Check if coords is not empty
+            terrain = Polygon(coords)
     
     print("-- Calculate recommended path --")
-    # Read and parse terrain
-    terrain = None
-    with open(terrain_file, "r") as file:
-        coords, _ = parse_obstacle_data(file.readline())
-        terrain = Polygon(coords)
-
     # Calculate recommended path
     recommended_path, iron_recommendations = calculate_recommended_path(start_coords, end_coords, nodes, obstacles, terrain)
 
@@ -277,10 +308,9 @@ if __name__ == "__main__":
     annotate_path(draw, recommended_path, iron_recommendations, img_width, img_height)
 
     # Save or display the modified image
-    img.save("output.png")
+    img.save("output/image_with_path.png")
 
-    # Show image
-    cv2.imshow("Output", np.array(img))
-    cv2.waitKey(0)
+    print("\n#")
+    print("All files saved to the output folder !")
     print()
     print("#########################################################")
