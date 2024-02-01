@@ -4,14 +4,21 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon, Ellipse
 from PIL import Image, ImageDraw, ImageFont
 from shapely.geometry import LineString, Polygon
+import cv2
 import time
 import sys
 
 # Import the function GoogleMapDownloader to download high res maps
 from GoogleMapDownloader import GoogleMapDownloader, GoogleMapsLayers
 
+# Import function to get the predictions on the image
+from visionModel import getPredictionJson, getPredictionLabels
+
 # Some settings for the PIL package
 font = ImageFont.truetype("../fonts/RobotoMono-Bold.ttf", 30)
+
+# Don't mind this 🤡
+global golf_irons 
 
 # Function for reccommanded path
 def generate_nodes(lat_min, lat_max, lon_min, lon_max, spacing):
@@ -132,14 +139,6 @@ def annotate_path(draw, path, iron_recommendations, img_width, img_height):
         mid_x, mid_y = lat_lon_to_image_coords(*mid_point, img_width, img_height, lat_min, lat_max, lon_min, lon_max)
         draw.text((mid_x, mid_y), f'{iron}', fill="white" , font=font)
 
-# SETTINGS
-golf_irons = {
-    # 'Sand Wedge': 70,
-    'Iron 9': 105,  
-    'Iron 7': 128,
-    'Driver 3': 190,
-    'Putter': 10
-}
 
 def select_iron(distance):
     """Select the appropriate golf iron for a given distance."""
@@ -164,12 +163,47 @@ if __name__ == "__main__":
     print("### 🏌️‍♂️  An Innovative Algorithm for Golf Strategies 🏌️‍♀️  ###")
     print("#########################################################\n")
 
-    # Use the GoogleMapDownloader
-    gmd = GoogleMapDownloader(48.90777644484169, 1.9924695786917603, 19, GoogleMapsLayers.SATELLITE)
+    """
+    SETTINGS
+    """
+    # Define start (tee) and end (hole) points
+    start_coords = (48.90891343931512, 1.9938896367494228)
+    end_coords = (48.90665014147519, 1.991794617313395)
+    # Define the threshold for the prediction
+    value_threshold = 60
+    # Define the golf irons
+    golf_irons = {
+        'Iron 9': 105,  
+        'Iron 7': 128,
+        'Driver 3': 190,
+    }
+    # Define the files to store all the obstacles (until the model is 100% accurate)
+    obstacles_file = "../data/obstacles.txt"
+    terrain_file = "../data/terrain.txt"
+    """
+    SETTINGS
+    """
 
-    #     # Load your image
+    # Calculate the center point
+    LAT_center_point = (start_coords[0] + end_coords[0]) / 2
+    LNG_center_point = (start_coords[1] + end_coords[1]) / 2
+
+    # Use the GoogleMapDownloader
+    gmd = GoogleMapDownloader(LAT_center_point, LNG_center_point, 19, GoogleMapsLayers.SATELLITE)
+
+    # Load your image
     img = gmd.generateImage()
     draw = ImageDraw.Draw(img)
+
+    # Save image
+    img_path = "map.png"
+    img.save(img_path)
+
+    # Show the prediction on the image (the returned image is a cv2 image)
+    predictions = getPredictionLabels(img_path, threshold=value_threshold)
+    # Show the image and wait for user input to continue
+    cv2.imshow("Predictions with labels", predictions)
+    cv2.waitKey(0)
 
     # Define the geographical extent and image size
     corners = gmd.get_corner_lat_lons()
@@ -186,10 +220,6 @@ if __name__ == "__main__":
     print(f"lat_min = {lat_min}, lat_max = {lat_max}, lon_min = {lon_min}, lon_max = {lon_max}")
     print(f"img_width = {img_width}, img_height = {img_height}")
     print()
-
-    # Define start (tee) and end (hole) points
-    start_coords = (48.90891343931512, 1.9938896367494228)
-    end_coords = (48.90665014147519, 1.991794617313395)
 
     # Print the distance in meters from Tee to Hole
     print("-- Distance from Tee to Hole --")
@@ -211,7 +241,7 @@ if __name__ == "__main__":
 
     # Read and parse obstacles
     obstacles = []
-    with open("../data/obstacles.txt", "r") as file:
+    with open(obstacles_file, "r") as file:
         for line in file:
             coords, _ = parse_obstacle_data(line)
             obstacles.append(coords)
@@ -219,7 +249,7 @@ if __name__ == "__main__":
     print("-- Calculate recommended path --")
     # Read and parse terrain
     terrain = None
-    with open("../data/terrain.txt", "r") as file:
+    with open(terrain_file, "r") as file:
         coords, _ = parse_obstacle_data(file.readline())
         terrain = Polygon(coords)
 
@@ -232,10 +262,9 @@ if __name__ == "__main__":
 
 
     # Optionally, draw obstacles based on a flag
-    draw_obstacles = True
-    # draw_obstacles = False
+    draw_obstacles = False
     if draw_obstacles:
-        with open("../data/obstacles.txt", "r") as file:
+        with open(obstacles_file, "r") as file:
             for line in file:
                 coords, color = parse_obstacle_data(line)
                 draw_obstacle(draw, coords, color)
@@ -249,7 +278,9 @@ if __name__ == "__main__":
 
     # Save or display the modified image
     img.save("output.png")
-    # img.show()
 
+    # Show image
+    cv2.imshow("Output", np.array(img))
+    cv2.waitKey(0)
     print()
     print("#########################################################")
