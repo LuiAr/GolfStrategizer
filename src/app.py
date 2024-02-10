@@ -310,7 +310,7 @@ if __name__ == "__main__":
     # Save or display the modified image
     img.save("output/image_with_path.png")
 
-    print("\n#")
+    print("\n#") 
     print("All files saved to the output folder !")
     print()
     print("#########################################################")
