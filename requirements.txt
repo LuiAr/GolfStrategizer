@@ -4,3 +4,6 @@ networkx
 numpy
 pandas
 pyarrow
+pytest
+shapely
+opencv-python-headless
