@@ -147,10 +147,15 @@ def select_iron(distance, is_first_shot):
     # Exclude 'Driver 3' if it's not the first shot
     available_irons = {k: v for k, v in golf_irons.items() if not (k == 'Driver 3' and not is_first_shot)}
     
-    for iron, max_range in sorted(available_irons.items(), key=lambda item: item[1], reverse=True):
+    # Sort by range in ascending order so we choose the smallest iron that still
+    # covers the required distance
+    for iron, max_range in sorted(available_irons.items(), key=lambda item: item[1]):
         if distance <= max_range:
             return iron
-    return 'Iron 9'
+
+    # If the distance is greater than any iron's range, fall back to the iron
+    # with the maximum range
+    return max(available_irons.items(), key=lambda item: item[1])[0]
 
 
 # Main execution part
