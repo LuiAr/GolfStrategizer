@@ -7,3 +7,4 @@ pyarrow
 pytest
 shapely
 opencv-python-headless
+Pillow

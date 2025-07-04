@@ -2,6 +2,7 @@ import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon, Ellipse
+import os
 from PIL import Image, ImageDraw, ImageFont
 from shapely.geometry import LineString, Polygon
 import cv2
@@ -15,7 +16,8 @@ from GoogleMapDownloader import GoogleMapDownloader, GoogleMapsLayers
 from visionModel import getPredictionJson, getPredictionLabels
 
 # Some settings for the PIL package
-font = ImageFont.truetype("../fonts/RobotoMono-Bold.ttf", 30)
+FONT_PATH = os.path.join(os.path.dirname(__file__), "..", "fonts", "RobotoMono-Bold.ttf")
+font = ImageFont.truetype(FONT_PATH, 30)
 
 # Don't mind this 🤡
 global golf_irons 
@@ -231,10 +233,12 @@ if __name__ == "__main__":
     img_path = "output/image.png"
     img.save(img_path)
 
-    # Show the prediction on the image (the returned image is a cv2 image)
+    # Show the prediction on the image and save it
     img_with_labels = getPredictionLabels(img_path, threshold=value_threshold)
-    # Save the image
-    cv2.imwrite("output/image_with_labels.png", img_with_labels)
+    if isinstance(img_with_labels, Image.Image):
+        img_with_labels.save("output/image_with_labels.png")
+    else:
+        cv2.imwrite("output/image_with_labels.png", img_with_labels)
 
     # Define the geographical extent and image size
     corners = gmd.get_corner_lat_lons()
@@ -298,7 +302,7 @@ if __name__ == "__main__":
 
 
     # Optionally, draw obstacles based on a flag
-    draw_obstacles = False
+    draw_obstacles = True
     if draw_obstacles:
         with open(obstacles_file, "r") as file:
             for line in file:
